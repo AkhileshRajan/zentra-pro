@@ -1,14 +1,10 @@
 fastapi==0.109.2
 uvicorn[standard]==0.27.1
-
 openai==1.12.0
-
-# Supabase Python client + compatible stack
-supabase==2.9.0
 httpx>=0.26,<0.28
-httpcore==0.17.3
+# httpcore pin removed to resolve conflict
+supabase==2.9.0
 supabase-auth==2.23.0
-
 python-dotenv==1.0.1
 pandas==2.2.0
 python-multipart==0.0.9
