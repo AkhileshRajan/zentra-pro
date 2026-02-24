@@ -1,3 +1,3 @@
 # Zentra Pro
 
-Triggering a fresh Railway rebuild.
+Triggering a fresh Railway rebuild
