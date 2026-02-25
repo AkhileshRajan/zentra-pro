@@ -1,17 +1,21 @@
 """Auth module - Supabase JWT verification and magic link."""
 
 import os
-from fastapi import HTTPException, Depends, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, APIKeyHeader
-from supabase import create_client
-from dotenv import load_dotenv
 
-from app.database import ensure_user, get_user_by_id, reset_credits_if_needed
+from dotenv import load_dotenv
+from fastapi import HTTPException, Depends, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from supabase import create_client
+
+from app.database import ensure_user, reset_credits_if_needed
 
 load_dotenv()
 
 url = os.getenv("SUPABASE_URL")
 key = os.getenv("SUPABASE_KEY")
+if not url or not key:
+    raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set")
+
 # Use service role or anon key that can verify JWT; anon key works with JWT from Supabase Auth
 supabase = create_client(url, key)
 
