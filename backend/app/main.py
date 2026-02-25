@@ -1,50 +1,26 @@
 """FastAPI application - Zentra API."""
 
 import os
-from pathlib import Path
-from dotenv import load_dotenv
-
-# 🔥 Load .env BEFORE importing anything from app
-env_path = Path(__file__).resolve().parent.parent / ".env"
-load_dotenv(dotenv_path=env_path)
-
-# Optional safety check
-if not os.getenv("SUPABASE_URL") or not os.getenv("SUPABASE_KEY"):
-    raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set")
-
 import io
-import pandas as pd
-from PyPDF2 import PdfReader
 
-from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-
-# 🔥 Import app modules AFTER dotenv is loaded
-from app.auth import get_current_user
-from app.database import (
-    deduct_credits,
-    CREDITS_PER_PROMPT,
-    save_zentra_score,
-)
-from app.ai import chat_completion, summarize_file_text
-
-from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import pandas as pd
 from PyPDF2 import PdfReader
 from dotenv import load_dotenv
+from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
-from app.auth import get_current_user
-from app.database import (
+# Load environment variables (expects a .env in the backend directory or env vars set by host)
+load_dotenv()
+
+from app.auth import get_current_user  # noqa: E402
+from app.database import (  # noqa: E402
     deduct_credits,
     CREDITS_PER_PROMPT,
     save_zentra_score,
 )
-from app.ai import chat_completion, summarize_file_text
+from app.ai import chat_completion, summarize_file_text  # noqa: E402
 
-load_dotenv()
 
 app = FastAPI(title="Zentra API", version="1.0.0")
 

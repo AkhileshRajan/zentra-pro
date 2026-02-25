@@ -91,7 +91,6 @@ def set_subscription_cancelled(user_id: str) -> None:
 def _next_month_iso() -> str:
     """Return first day of next month in ISO format for credits reset."""
     from datetime import date
-    from calendar import monthrange
     today = date.today()
     if today.month == 12:
         next_month = date(today.year + 1, 1, 1)

@@ -30,7 +30,7 @@ export default function Dashboard({ profile, setProfile }) {
 
   const handleChat = async (e) => {
     e.preventDefault();
-    if (!input.trim() || loading || (profile?.credits ?? 0) < CREDITS_PER_PROMPT) return;
+    if (!input.trim() || loading) return;
     const userMsg = { role: 'user', content: input.trim() };
     setMessages((m) => [...m, userMsg]);
     setInput('');
@@ -69,7 +69,7 @@ export default function Dashboard({ profile, setProfile }) {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!file || uploadLoading || (profile?.credits ?? 0) < CREDITS_PER_PROMPT) return;
+    if (!file || uploadLoading) return;
     setUploadLoading(true);
     setUploadSummary(null);
     try {
@@ -131,9 +131,9 @@ export default function Dashboard({ profile, setProfile }) {
                 placeholder="Type your question…"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                disabled={loading || credits < CREDITS_PER_PROMPT}
+                disabled={loading}
               />
-              <button type="submit" disabled={loading || credits < CREDITS_PER_PROMPT}>
+              <button type="submit" disabled={loading}>
                 {loading ? '…' : 'Send'}
               </button>
             </form>
@@ -177,7 +177,7 @@ export default function Dashboard({ profile, setProfile }) {
             <p className="hint">We extract text and summarize it with AI. 10 credits per upload.</p>
             <form onSubmit={handleUpload}>
               <input type="file" accept=".pdf,.xlsx,.xls" onChange={(e) => setFile(e.target.files?.[0] || null)} />
-              <button type="submit" disabled={!file || uploadLoading || credits < CREDITS_PER_PROMPT}>
+              <button type="submit" disabled={!file || uploadLoading}>
                 {uploadLoading ? 'Processing…' : 'Upload & summarize'}
               </button>
             </form>
