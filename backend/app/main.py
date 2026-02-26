@@ -24,9 +24,10 @@ from app.ai import chat_completion, summarize_file_text  # noqa: E402
 
 app = FastAPI(title="Zentra API", version="1.0.0")
 
+# CORS – currently open to all origins so the API works from both localhost and Vercel
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("FRONTEND_URL", "http://localhost:5173").split(","),
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
